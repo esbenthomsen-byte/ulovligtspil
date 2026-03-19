@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UlovligtSpil.dk – Samfundstab fra ulovligt onlinespil i Danmark</title>
+<meta name="description" content="Ulovligt offshore-spil koster det danske samfund ~1,7 milliarder kroner om året i tabte skatteindtægter, omkostninger fra problemspil og kriminalitet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #06060b;
+  --bg-elevated: #0c0c14;
+  --bg-card: #10101a;
+  --red: #e63946;
+  --red-bright: #ff4757;
+  --red-glow: rgba(230, 57, 70, 0.35);
+  --green: #2a9d8f;
+  --text: #f0f0f5;
+  --text-secondary: #c0c0cc;
+  --text-muted: #6a6a7a;
+  --border: #1a1a28;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 5vw, 4rem);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background layers */
+.hero-bg-glow {
+  position: absolute; top: 40%; left: 50%; width: 900px; height: 900px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(230,57,70,0.13) 0%, rgba(230,57,70,0.04) 35%, transparent 65%);
+  animation: glowPulse 5s ease-in-out infinite; pointer-events: none;
+}
+@keyframes glowPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.6; }
+}
+
+.hero-bg-glow2 {
+  position: absolute; top: 30%; left: 50%; width: 500px; height: 500px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(230,57,70,0.18) 0%, transparent 60%);
+  animation: glowPulse2 3s ease-in-out infinite; pointer-events: none; filter: blur(40px);
+}
+@keyframes glowPulse2 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(0.85); opacity: 1; }
+}
+
+.hero-grain {
+  position: absolute; inset: 0; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px; pointer-events: none;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(230,57,70,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(230,57,70,0.025) 1px, transparent 1px);
+  background-size: 80px 80px; pointer-events: none;
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 10%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 40%, black 10%, transparent 70%);
+}
+
+.hero-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.particle {
+  position: absolute; width: 2px; height: 2px; background: var(--red);
+  border-radius: 50%; opacity: 0; animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0% { transform: translateY(0) scale(0); opacity: 0; }
+  10% { opacity: 0.6; transform: translateY(0) scale(1); }
+  90% { opacity: 0.2; }
+  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+}
+.particle:nth-child(1) { left: 15%; animation-duration: 8s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 30%; animation-duration: 11s; animation-delay: 2s; width: 3px; height: 3px; }
+.particle:nth-child(3) { left: 50%; animation-duration: 9s; animation-delay: 4s; }
+.particle:nth-child(4) { left: 70%; animation-duration: 10s; animation-delay: 1s; }
+.particle:nth-child(5) { left: 85%; animation-duration: 12s; animation-delay: 3s; width: 3px; height: 3px; }
+.particle:nth-child(6) { left: 42%; animation-duration: 14s; animation-delay: 5s; }
+.particle:nth-child(7) { left: 8%; animation-duration: 10s; animation-delay: 6s; }
+.particle:nth-child(8) { left: 92%; animation-duration: 9s; animation-delay: 7s; width: 3px; height: 3px; }
+
+/* ========== LOGO ========== */
+.hero-top {
+  display: flex; align-items: center; gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  position: relative; z-index: 1;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--text);
+}
+
+/* Hacker brand icon */
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3em;
+  height: 1.5em;
+  margin-right: 0.3em;
+  flex-shrink: 0;
+  animation: markGlow 3s ease-in-out infinite;
+}
+.logo-mark svg {
+  width: 100%;
+  height: 100%;
+}
+.logo-mark-mask-unused {
+  display: none;
+  background: var(--red);
+  -webkit-mask-image: url("data:image/png;base64,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");
+  mask-image: url("data:image/png;base64,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");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  animation: markGlow 3s ease-in-out infinite;
+}
+
+@keyframes markGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(230,57,70,0.5)) drop-shadow(0 0 20px rgba(230,57,70,0.15)); }
+  50% { filter: drop-shadow(0 0 14px rgba(230,57,70,0.7)) drop-shadow(0 0 30px rgba(230,57,70,0.3)); }
+}
+
+.logo-ulovligt {
+  color: var(--red);
+  text-shadow: 0 0 30px rgba(230,57,70,0.25);
+}
+
+.logo-spil { color: var(--text); }
+
+.logo-dk {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.65em;
+  margin-left: 0.02em;
+  position: relative;
+  top: 0.05em;
+}
+
+.hero-live {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(40,200,80,0.06); border: none;
+  border-radius: 100px; padding: calc(0.3rem + 1px) calc(0.75rem + 1px);
+  font-size: 0.65rem; color: #34d058;
+  text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
+}
+
+.hero-live::before {
+  content: ''; position: absolute; inset: 0; border-radius: 100px; padding: 1px;
+  background: conic-gradient(from var(--live-border-angle, 0deg),
+    transparent 30%, rgba(52,208,88,0.5) 35%, rgba(52,208,88,0.2) 40%, transparent 45%,
+    transparent 80%, rgba(52,208,88,0.3) 85%, rgba(52,208,88,0.1) 90%, transparent 95%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude; -webkit-mask-composite: xor;
+  animation: rotateLiveBorder 4s linear infinite; pointer-events: none;
+}
+@property --live-border-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes rotateLiveBorder { to { --live-border-angle: 360deg; } }
+
+.live-dot {
+  width: 6px; height: 6px; background: #34d058; border-radius: 50%;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,208,88,0.7); }
+  50% { box-shadow: 0 0 0 5px rgba(52,208,88,0); }
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.2rem); color: var(--text-muted);
+  max-width: 500px; margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  position: relative; z-index: 1; line-height: 1.6; font-weight: 400;
+}
+
+/* ========== COUNTER FRAME ========== */
+.counter-frame {
+  position: relative; z-index: 1;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: 24px; background: rgba(6,6,11,0.8);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  margin-bottom: 2rem; width: 100%; max-width: 860px;
+}
+
+.counter-frame::before {
+  content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1px;
+  background: conic-gradient(from var(--border-angle, 0deg),
+    transparent 25%, rgba(230,57,70,0.4) 30%, rgba(230,57,70,0.15) 35%, transparent 40%,
+    transparent 75%, rgba(230,57,70,0.2) 80%, rgba(230,57,70,0.08) 85%, transparent 90%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude; -webkit-mask-composite: xor;
+  animation: rotateBorder 6s linear infinite; pointer-events: none;
+}
+@property --border-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes rotateBorder { to { --border-angle: 360deg; } }
+
+.counter-frame::after {
+  content: ''; position: absolute; inset: 0; border-radius: 24px;
+  box-shadow: inset 0 0 60px rgba(230,57,70,0.04), 0 0 80px rgba(230,57,70,0.06);
+  pointer-events: none;
+}
+
+/* ========== COUNTER LABEL ========== */
+.counter-label {
+  font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
+  text-align: center;
+}
+
+/* ========== MAIN COUNTER ========== */
+.counter-ytd-wrap {
+  position: relative;
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  min-height: clamp(2.5rem, 8vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter-ytd {
+  font-size: clamp(2rem, 7vw, 4.2rem);
+  font-weight: 900;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  padding: 0.15em 0.3em;
+  margin: -0.15em -0.3em;
+  animation: counterPulse 3s ease-in-out infinite, counterGloss 8s ease-in-out infinite;
+  background: linear-gradient(125deg, var(--red) 0%, var(--red) 35%, rgba(255,160,170,0.65) 50%, var(--red) 65%, var(--red) 100%);
+  background-size: 400% 400%;
+  background-position: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes counterGloss {
+  0%, 50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+@keyframes counterPulse {
+  0%, 100% { transform: scale(1); text-shadow: 0 0 30px rgba(230,57,70,0.4), 0 0 80px rgba(230,57,70,0.15), 0 0 160px rgba(230,57,70,0.05); }
+  50% { transform: scale(1.07); text-shadow: 0 0 60px rgba(230,57,70,0.8), 0 0 150px rgba(230,57,70,0.4), 0 0 250px rgba(230,57,70,0.15); }
+}
+
+/* Welfare equivalent cycling below counter */
+.welfare-cycle {
+  margin-top: 0.75rem;
+  min-height: 3.6em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.35s ease;
+}
+
+.welfare-equiv {
+  font-size: clamp(1.15rem, 2.5vw, 1.65rem);
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.welfare-equiv-number {
+  color: var(--text);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.1em;
+}
+
+.welfare-cost {
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  color: var(--text-muted);
+  opacity: 0.5;
+  margin-top: 0.25rem;
+}
+
+/* Stat strip */
+.counter-stats {
+  display: flex; justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.25rem); flex-wrap: wrap;
+}
+
+.counter-stat {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0.6rem clamp(0.75rem, 2vw, 1.5rem);
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px; min-width: 140px; flex: 1; max-width: 220px;
+}
+
+.counter-stat-label {
+  font-size: clamp(0.58rem, 0.9vw, 0.68rem); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 0.2rem;
+}
+
+.counter-stat-value {
+  font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 700; color: var(--text);
+  font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+}
+
+.counter-stat-value.red { color: var(--red); opacity: 0.9; }
+
+/* Live bar */
+.live-bar-section {
+  width: 100%; max-width: 800px; position: relative; z-index: 1;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.live-bar-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 0.5rem; padding: 0 0.25rem;
+}
+
+.live-bar-label {
+  font-size: clamp(0.63rem, 0.95vw, 0.73rem); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+}
+
+.live-bar-value {
+  font-size: clamp(0.75rem, 1.2vw, 0.88rem); color: var(--red-bright);
+  font-weight: 700; font-variant-numeric: tabular-nums;
+}
+
+.live-bar-track {
+  width: 100%; height: 20px; background: rgba(255,255,255,0.025);
+  border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.04);
+}
+
+.live-bar-fill {
+  height: 100%; width: 0%; background: linear-gradient(90deg, var(--red), var(--red-bright));
+  border-radius: 10px; position: relative; min-width: 2px;
+  box-shadow: 0 0 20px rgba(230,57,70,0.3);
+}
+
+.live-bar-fill::after {
+  content: ''; position: absolute; right: -1px; top: -2px; bottom: -2px;
+  width: 4px; background: #fff; border-radius: 4px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.6), 0 0 30px rgba(230,57,70,0.6); opacity: 0.9;
+}
+
+.live-bar-markers {
+  display: flex; justify-content: space-between; margin-top: 0.35rem;
+  font-size: 0.58rem; color: var(--text-muted); font-variant-numeric: tabular-nums;
+  opacity: 0.7; padding: 0 0.25rem;
+}
+
+/* Rate line */
+.rate-line {
+  position: relative; z-index: 1; font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+  color: var(--text-muted); font-weight: 400;
+}
+.rate-line strong { color: var(--text); font-weight: 700; }
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute; bottom: clamp(1.25rem, 3vw, 2rem); left: 50%;
+  transform: translateX(-50%); display: flex; flex-direction: column;
+  align-items: center; gap: 0.4rem; color: var(--text-muted); opacity: 0.35; z-index: 1;
+}
+.scroll-hint-text { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; }
+.scroll-hint-arrow { width: 16px; height: 24px; border: 1.5px solid var(--text-muted); border-radius: 10px; position: relative; }
+.scroll-hint-arrow::before {
+  content: ''; position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+  width: 2px; height: 6px; background: var(--text-muted); border-radius: 2px;
+  animation: scrollDot 2s ease-in-out infinite;
+}
+@keyframes scrollDot {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(5px); opacity: 0.3; }
+}
+
+/* ============================================================
+   HUMAN COST / EQUIVALENTS
+   ============================================================ */
+.equiv-section {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: clamp(3.5rem, 8vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+}
+.equiv-inner { max-width: 900px; margin: 0 auto; }
+.equiv-intro {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem); color: var(--text-secondary);
+  margin-bottom: 2rem; max-width: 600px; line-height: 1.6;
+}
+.equiv-grid { display: grid; grid-template-columns: 1fr; gap: clamp(0.75rem, 2vw, 1rem); }
+@media (min-width: 640px) { .equiv-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.equiv-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+  padding: clamp(1.25rem, 3vw, 1.75rem); text-align: center;
+  position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+}
+.equiv-card:hover { border-color: rgba(230,57,70,0.25); transform: translateY(-2px); }
+.equiv-card::before {
+  content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: 0.4;
+}
+.equiv-profession {
+  font-size: clamp(0.7rem, 1.1vw, 0.8rem); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 0.75rem;
+}
+.equiv-ytd {
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--red);
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;
+  text-shadow: 0 0 30px rgba(230,57,70,0.2);
+}
+.equiv-period {
+  font-size: clamp(0.6rem, 0.9vw, 0.7rem); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600;
+  margin-top: 0.3rem; margin-bottom: 1rem;
+}
+.equiv-sub {
+  display: flex; justify-content: center; gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.04); padding-top: 0.75rem;
+}
+.equiv-sub-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
+.equiv-sub-item + .equiv-sub-item { border-left: 1px solid rgba(255,255,255,0.04); }
+.equiv-sub-label {
+  font-size: clamp(0.55rem, 0.85vw, 0.63rem); color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+}
+.equiv-sub-value { font-size: clamp(0.95rem, 2vw, 1.2rem); font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.equiv-salary { margin-top: 0.75rem; font-size: clamp(0.6rem, 0.9vw, 0.68rem); color: var(--text-muted); opacity: 0.6; }
+
+.equiv-section.visible .equiv-card { opacity: 1; transform: translateY(0); }
+.equiv-card { opacity: 0; transform: translateY(15px); transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s; }
+.equiv-section.visible .equiv-card:nth-child(1) { transition-delay: 0s; }
+.equiv-section.visible .equiv-card:nth-child(2) { transition-delay: 0.12s; }
+.equiv-section.visible .equiv-card:nth-child(3) { transition-delay: 0.24s; }
+
+/* ============================================================
+   SHARED SECTION STYLES
+   ============================================================ */
+section.content-section { padding: clamp(4rem, 10vw, 7rem) clamp(1.5rem, 5vw, 4rem); max-width: 900px; margin: 0 auto; }
+.section-label { font-size: clamp(0.65rem, 1vw, 0.75rem); color: var(--red); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 700; margin-bottom: 0.75rem; }
+.section-title { font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.03em; line-height: 1.2; }
+.section-intro { font-size: clamp(1rem, 1.8vw, 1.15rem); color: var(--text-secondary); max-width: 700px; margin-bottom: 2.5rem; line-height: 1.7; }
+
+.divider { max-width: 900px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+.divider hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(0.75rem, 2vw, 1rem); }
+@media (min-width: 640px) { .cards { grid-template-columns: repeat(4, 1fr); } }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: clamp(1.25rem, 3vw, 1.75rem) clamp(1rem, 2vw, 1.25rem); text-align: center; transition: border-color 0.3s, transform 0.3s; }
+.card:hover { border-color: rgba(230,57,70,0.3); transform: translateY(-2px); }
+.card-value { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 900; color: var(--red); margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+.card-desc { font-size: clamp(0.75rem, 1.2vw, 0.85rem); color: var(--text-muted); line-height: 1.5; }
+
+/* Problem section */
+.problem-section p { color: var(--text-secondary); margin-bottom: 1.25rem; font-size: clamp(0.95rem, 1.6vw, 1.1rem); }
+.problem-section strong { color: var(--text); }
+.callout { background: linear-gradient(135deg, rgba(230,57,70,0.08), rgba(230,57,70,0.03)); border: 1px solid rgba(230,57,70,0.15); border-radius: 16px; padding: clamp(1.5rem, 3vw, 2rem); margin: 2rem 0; }
+.callout-title { font-size: clamp(1rem, 1.8vw, 1.2rem); font-weight: 800; color: var(--red-bright); margin-bottom: 0.75rem; }
+.callout p { color: var(--text-secondary) !important; margin-bottom: 0.75rem !important; font-size: clamp(0.9rem, 1.4vw, 1rem) !important; }
+.callout p:last-child { margin-bottom: 0 !important; }
+
+.no-protection { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 2rem 0; }
+@media (min-width: 640px) { .no-protection { grid-template-columns: repeat(3, 1fr); } }
+.no-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-align: center; }
+.no-item-icon { font-size: 1.5rem; margin-bottom: 0.5rem; opacity: 0.9; }
+.no-item-title { font-size: 0.9rem; font-weight: 700; color: var(--red-bright); margin-bottom: 0.3rem; }
+.no-item-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+/* Bar chart */
+.bar-chart { margin: 2.5rem 0; }
+.bar-label-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.6rem; font-weight: 600; }
+.bar-label-onshore { color: var(--green); }
+.bar-label-offshore { color: var(--red); }
+.bar-track-chart { height: 40px; background: var(--bg-elevated); border-radius: 12px; overflow: hidden; display: flex; border: 1px solid var(--border); }
+.bar-onshore { width: 0%; background: linear-gradient(90deg, #1a7a6e, var(--green)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.bar-offshore { width: 0%; background: linear-gradient(90deg, var(--red), var(--red-bright)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s; }
+.bar-chart.visible .bar-onshore { width: 70%; }
+.bar-chart.visible .bar-offshore { width: 30%; }
+.bar-note { margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+
+/* Highlights */
+.highlights { list-style: none; padding: 0; margin: 2rem 0; }
+.highlights li { padding: 0.75rem 0 0.75rem 2rem; position: relative; color: var(--text-secondary); font-size: clamp(0.9rem, 1.4vw, 1.05rem); border-bottom: 1px solid rgba(255,255,255,0.03); }
+.highlights li:last-child { border-bottom: none; }
+.highlights li::before { content: ''; position: absolute; left: 0; top: 1.1rem; width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red-glow); }
+.highlights li strong { color: var(--text); }
+
+/* Method */
+.method p { color: var(--text-secondary); margin-bottom: 1rem; font-size: clamp(0.9rem, 1.4vw, 1rem); }
+.formula { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 2rem; font-family: 'Courier New', monospace; font-size: clamp(0.78rem, 1.1vw, 0.9rem); color: var(--text-secondary); margin: 2rem 0; overflow-x: auto; line-height: 2; }
+.formula .hl { color: var(--red-bright); font-weight: 700; }
+.disclaimer { background: rgba(230,57,70,0.05); border-left: 3px solid var(--red); padding: 1.25rem 1.5rem; border-radius: 0 12px 12px 0; margin-top: 2rem; }
+.disclaimer p { color: var(--text-muted) !important; font-size: clamp(0.8rem, 1.1vw, 0.9rem) !important; margin: 0 !important; line-height: 1.7; }
+
+/* Footer */
+footer { border-top: 1px solid var(--border); padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 5vw, 4rem); text-align: center; color: var(--text-muted); font-size: 0.78rem; line-height: 2; max-width: 900px; margin: 0 auto; }
+
+/* Animations */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.fade-in.visible .card:nth-child(1) { transition-delay: 0s; }
+.fade-in.visible .card:nth-child(2) { transition-delay: 0.1s; }
+.fade-in.visible .card:nth-child(3) { transition-delay: 0.2s; }
+.fade-in.visible .card:nth-child(4) { transition-delay: 0.3s; }
+.card { opacity: 0; transform: translateY(15px); transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s; }
+.fade-in.visible .card { opacity: 1; transform: translateY(0); }
+::selection { background: rgba(230,57,70,0.3); color: var(--text); }
+
+/* ============================================================
+   TOGGLE
+   ============================================================ */
+.counter-toggle {
+  display: flex;
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 100px;
+  padding: 3px;
+  margin: 0 auto clamp(0.75rem, 1.5vw, 1rem);
+  width: fit-content;
+}
+
+.toggle-btn {
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font);
+  font-size: clamp(0.6rem, 1vw, 0.72rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.4rem clamp(0.75rem, 2vw, 1.25rem);
+  cursor: pointer;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.toggle-btn.active { color: var(--text); }
+.toggle-btn:hover { color: var(--text-secondary); }
+
+.toggle-slider {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 100px;
+  background: rgba(230,57,70,0.15);
+  border: 1px solid rgba(230,57,70,0.25);
+  transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* ============================================================
+   COST BREAKDOWN
+   ============================================================ */
+.cost-group { margin-bottom: clamp(1.5rem, 3vw, 2rem); }
+
+.cost-group-header {
+  font-size: clamp(0.7rem, 1.1vw, 0.82rem);
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cost-items { display: grid; gap: clamp(0.5rem, 1vw, 0.75rem); }
+
+.cost-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: clamp(0.85rem, 2vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
+  border-left: 3px solid var(--border);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.cost-item:hover { transform: translateY(-1px); }
+
+.cost-item[data-source="h2"] { border-left-color: var(--red); }
+.cost-item[data-source="studie"] { border-left-color: #4dabf7; }
+.cost-item[data-source="estimat"] { border-left-color: var(--text-muted); }
+
+.cost-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+  gap: 0.75rem;
+}
+
+.cost-item-name {
+  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.cost-item-amount {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 800;
+  color: var(--red);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cost-item-calc {
+  font-size: clamp(0.72rem, 1vw, 0.82rem);
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.35rem;
+}
+
+.cost-item-source { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+.source-tag {
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.source-h2 { background: rgba(230,57,70,0.1); color: var(--red-bright); }
+.source-studie { background: rgba(77,171,247,0.1); color: #4dabf7; }
+.source-estimat { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+
+.cost-subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.75rem clamp(1rem, 2vw, 1.5rem);
+  margin-top: 0.5rem;
+}
+
+.cost-subtotal-label {
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.cost-subtotal-amount {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.cost-total {
+  background: linear-gradient(135deg, rgba(230,57,70,0.08), rgba(230,57,70,0.03));
+  border: 1px solid rgba(230,57,70,0.2);
+  border-radius: 16px;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  text-align: center;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.cost-total-label {
+  font-size: clamp(0.65rem, 1vw, 0.75rem);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.cost-total-amount {
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 30px rgba(230,57,70,0.2);
+}
+
+.cost-total-note {
+  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+  color: var(--text-secondary);
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+.disclaimer-orange {
+  border-left-color: #f59f00;
+  background: rgba(245,159,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .counter-ytd { font-size: clamp(1.5rem, 6.5vw, 2.2rem); }
+  .counter-frame { padding: 1.25rem 1rem; border-radius: 18px; }
+  .counter-stats { gap: 0.4rem; }
+  .counter-stat { min-width: 0; padding: 0.5rem 0.6rem; }
+  .counter-stat-label { font-size: 0.55rem; }
+  .counter-stat-value { font-size: 0.9rem; }
+  .hero { padding-top: 4rem; }
+  .no-item { padding: 1rem; }
+  .logo { font-size: clamp(1.3rem, 6vw, 1.8rem); }
+  .toggle-btn { padding: 0.35rem 0.6rem; font-size: 0.58rem; }
+  .cost-item-header { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow2"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
+
+  <div class="hero-top">
+    <span class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 1540 1780" fill="var(--red)"><g transform="translate(0,1780) scale(1,-1)"><path d="M665 1747 c-85 -42 -148 -112 -209 -233 -83 -166 -97 -316 -40 -424 16 -30 30 -58 32 -62 2 -5 -9 -8 -25 -8 -41 0 -124 -24 -178 -51 -87 -44 -114 -86 -184 -293 -71 -210 -72 -218 -18 -321 32 -61 190 -236 202 -224 3 4 -4 122 -16 263 -22 248 -22 256 -4 276 18 20 29 20 542 20 508 0 524 -1 543 -20 17 -17 19 -29 14 -77 -23 -246 -41 -469 -39 -471 6 -7 152 145 183 190 40 58 62 118 62 168 0 46 -112 370 -142 411 -45 61 -187 129 -269 129 -34 0 -36 11 -9 48 11 15 27 58 36 95 16 63 16 74 1 150 -29 145 -103 293 -188 374 -86 80 -203 104 -294 60z m19 -447 c31 -11 33 -23 6 -50 -20 -20 -55 -26 -77 -12 -12 8 -33 55 -33 74 0 12 61 5 104 -12z m266 -3 c0 -60 -64 -88 -108 -47 -32 30 -28 38 26 54 68 21 82 20 82 -7z m-133 -83 c40 -31 53 -35 85 -31 22 3 54 17 73 32 l35 26 0 -43 c0 -91 -72 -192 -171 -242 -65 -32 -77 -32 -140 -1 -103 53 -158 127 -173 238 -7 49 1 60 25 31 19 -24 65 -44 98 -44 19 0 44 12 71 35 23 19 44 35 46 35 2 0 25 -16 51 -36z"/><path d="M245 650 c-6 -10 31 -473 43 -528 l7 -33 474 1 c261 0 476 1 477 3 7 7 47 536 41 550 -6 16 -43 17 -521 17 -326 0 -517 -4 -521 -10z"/><path d="M292 38 l3 -23 473 -3 472 -2 0 25 0 25 -476 0 -475 0 3 -22z"/></g></svg></span>
+      <span class="logo-ulovligt">Ulovligt</span><span class="logo-spil">Spil</span><span class="logo-dk">.dk</span>
+    </span>
+    <span class="hero-live"><span class="live-dot"></span> Live</span>
+  </div>
+
+  <p class="hero-subtitle">Hvert sekund forsvinder danske skattekroner til <strong style="color:var(--red-bright)">ulovlige offshore-kasinoer</strong> - uden ROFUS, uden kontrol, uden konsekvens.</p>
+
+  <div class="counter-frame">
+    <div class="counter-toggle">
+      <button class="toggle-btn active" data-mode="total">Samfundstab</button>
+      <button class="toggle-btn" data-mode="tax">Tabt spilleafgift</button>
+      <div class="toggle-slider"></div>
+    </div>
+    <div class="counter-label" id="counter-label">I &aring;r har <strong style="color:var(--red-bright)">ulovligt offshore-spil</strong> kostet samfundet</div>
+
+    <div class="counter-ytd-wrap">
+      <div class="counter-ytd" id="ytd">DKK 0</div>
+      <div class="welfare-cycle" id="welfare-cycle">
+        <div class="welfare-equiv"><span class="welfare-equiv-number" id="welfare-number">0</span> <span id="welfare-name"></span></div>
+        <div class="welfare-cost" id="welfare-cost"></div>
+      </div>
+    </div>
+
+    <div class="counter-stats">
+      <div class="counter-stat">
+        <span class="counter-stat-label">Pr. sekund</span>
+        <span class="counter-stat-value" id="per-sec-stat">81,91 kr.</span>
+      </div>
+      <div class="counter-stat">
+        <span class="counter-stat-label">I dag</span>
+        <span class="counter-stat-value red" id="today-stat">0</span>
+      </div>
+      <div class="counter-stat">
+        <span class="counter-stat-label">Denne m&aring;ned</span>
+        <span class="counter-stat-value red" id="mtd">0</span>
+      </div>
+      <div class="counter-stat">
+        <span class="counter-stat-label">I &aring;r</span>
+        <span class="counter-stat-value red" id="ytd-stat">0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-bar-section">
+    <div class="live-bar-header">
+      <span class="live-bar-label">Dagens tab</span>
+      <span class="live-bar-value" id="today-value">DKK 0</span>
+    </div>
+    <div class="live-bar-track">
+      <div class="live-bar-fill" id="today-bar"></div>
+    </div>
+    <div class="live-bar-markers">
+      <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>23:59</span>
+    </div>
+  </div>
+
+  <div class="rate-line" id="rate-line">DKK <strong>81,91</strong> pr. sekund - d&oslash;gnet rundt, &aring;ret rundt</div>
+  <div class="scroll-hint"><span class="scroll-hint-text">Scroll</span><div class="scroll-hint-arrow"></div></div>
+</section>
+
+<!-- ==================== HUMAN COST ==================== -->
+<div class="equiv-section fade-in">
+  <div class="equiv-inner">
+    <div class="section-label">Det svarer til</div>
+    <h2 class="section-title">Tabte skattekroner omregnet til velf&aelig;rd</h2>
+    <p class="equiv-intro">De penge, staten mister til ulovligt offshore-spil, kunne i stedet have finansieret fuldtidsansatte i den offentlige sektor:</p>
+    <div class="equiv-grid">
+      <div class="equiv-card">
+        <div class="equiv-profession">Sygeplejersker</div>
+        <div class="equiv-ytd" id="eq-nurse-ytd">0</div>
+        <div class="equiv-period">i &aring;r</div>
+        <div class="equiv-sub">
+          <div class="equiv-sub-item"><span class="equiv-sub-label">Denne md.</span><span class="equiv-sub-value" id="eq-nurse-mtd">0</span></div>
+          <div class="equiv-sub-item"><span class="equiv-sub-label">I dag</span><span class="equiv-sub-value" id="eq-nurse-day">0</span></div>
+          <div class="equiv-sub-item"><span class="equiv-sub-label">Hele 2026</span><span class="equiv-sub-value" id="eq-nurse-yr">0</span></div>
+        </div>
+        <div class="equiv-salary">Gns. &aring;rsl&oslash;n: 500.000 kr.</div>
+      </div>
+      <div class="equiv-card">
+        <div class="equiv-profession">Skolel&aelig;rere</div>
+        <div class="equiv-ytd" id="eq-teacher-ytd">0</div>
+        <div class="equiv-period">i &aring;r</div>
+        <div class="equiv-sub">
+          <div class="equiv-sub-item"><span class="equiv-sub-label">Denne md.</span><span class="equiv-sub-value" id="eq-teacher-mtd">0</span></div>
+          <div class="equiv-sub-item"><span class="equiv-sub-label">I dag</span><span class="equiv-sub-value" id="eq-teacher-day">0</span></div>
+          <div class="equiv-sub-item"><span class="equiv-sub-label">Hele 2026</span><span class="equiv-sub-value" id="eq-teacher-yr">0</span></div>
+        </div>
+        <div class="equiv-salary">Gns. &aring;rsl&oslash;n: 480.000 kr.</div>
+      </div>
+      <div class="equiv-card">
+        <div class="equiv-profession">P&aelig;dagoger</div>
+        <div class="equiv-ytd" id="eq-ped-ytd">0</div>
+        <div class="equiv-period">i &aring;r</div>
+        <div class="equiv-sub">
+          <div class="equiv-sub-item"><span class="equiv-sub-label">Denne md.</span><span class="equiv-sub-value" id="eq-ped-mtd">0</span></div>
+          <div class="equiv-sub-item"><span class="equiv-sub-label">I dag</span><span class="equiv-sub-value" id="eq-ped-day">0</span></div>
+          <div class="equiv-sub-item"><span class="equiv-sub-label">Hele 2026</span><span class="equiv-sub-value" id="eq-ped-yr">0</span></div>
+        </div>
+        <div class="equiv-salary">Gns. &aring;rsl&oslash;n: 400.000 kr.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== KEY FIGURES ==================== -->
+<div class="divider"><hr></div>
+<section class="content-section fade-in">
+  <div class="section-label">N&oslash;gletal</div>
+  <h2 class="section-title">Omfanget af det ulovlige spilmarked</h2>
+  <p class="section-intro">Disse tal stammer fra H2 Gambling Capitals analyse for Spillebranchen (februar 2026). De tegner et billede af et massivt parallelt marked - helt uden for dansk kontrol.</p>
+  <div class="cards">
+    <div class="card"><div class="card-value">2,5 mia.</div><div class="card-desc">&Aring;rligt offshore bruttospilindtægt (GGR)</div></div>
+    <div class="card"><div class="card-value">700 mio.</div><div class="card-desc">Tabt spilleafgift - hvert eneste &aring;r</div></div>
+    <div class="card"><div class="card-value">30%</div><div class="card-desc">Af alt dansk onlinespil er uden licens</div></div>
+    <div class="card"><div class="card-value">~60%</div><div class="card-desc">Af offshore er kryptokasinoer</div></div>
+  </div>
+</section>
+
+<!-- ==================== COST BREAKDOWN ==================== -->
+<div class="divider"><hr></div>
+<section class="content-section cost-breakdown fade-in">
+  <div class="section-label">Omkostningsfordeling</div>
+  <h2 class="section-title">Hvad ulovligt spil reelt koster Danmark</h2>
+  <p class="section-intro">Tabte skattekroner er kun toppen af isbjerget. Offshore-spil p&aring;f&oslash;rer samfundet omkostninger langt ud over den direkte spilleafgift.</p>
+
+  <div class="cost-group">
+    <div class="cost-group-header">A &middot; Direkte tabte skatteindt&aelig;gter</div>
+    <div class="cost-items">
+      <div class="cost-item" data-source="h2">
+        <div class="cost-item-header">
+          <span class="cost-item-name">Spilleafgift</span>
+          <span class="cost-item-amount">700 mio.</span>
+        </div>
+        <div class="cost-item-calc">28% af 2,5 mia. offshore GGR</div>
+        <div class="cost-item-source"><span class="source-tag source-h2">H2 data</span></div>
+      </div>
+      <div class="cost-item" data-source="estimat">
+        <div class="cost-item-header">
+          <span class="cost-item-name">Indkomstskat (tabte jobs)</span>
+          <span class="cost-item-amount">~115 mio.</span>
+        </div>
+        <div class="cost-item-calc">~600 tabte DK-jobs &times; 500K gns. l&oslash;n &times; 38% skat</div>
+        <div class="cost-item-source"><span class="source-tag source-h2">H2 P&amp;L</span> <span class="source-tag source-estimat">Estimat</span></div>
+      </div>
+      <div class="cost-item" data-source="estimat">
+        <div class="cost-item-header">
+          <span class="cost-item-name">Tabt moms</span>
+          <span class="cost-item-amount">~75 mio.</span>
+        </div>
+        <div class="cost-item-calc">25% moms p&aring; ~300M DK-baseret business spending</div>
+        <div class="cost-item-source"><span class="source-tag source-estimat">Estimat</span></div>
+      </div>
+      <div class="cost-item" data-source="estimat">
+        <div class="cost-item-header">
+          <span class="cost-item-name">L&oslash;nsumsafgift</span>
+          <span class="cost-item-amount">~27 mio.</span>
+        </div>
+        <div class="cost-item-calc">9,13% (metode 4) &times; ~300M DK-baseret l&oslash;nsum</div>
+        <div class="cost-item-source"><span class="source-tag source-estimat">Estimat</span></div>
+      </div>
+      <div class="cost-item" data-source="estimat">
+        <div class="cost-item-header">
+          <span class="cost-item-name">Selskabsskat</span>
+          <span class="cost-item-amount">~18 mio.</span>
+        </div>
+        <div class="cost-item-calc">22% &times; ~80M tabt profit (3% margin af 2,5 mia.)</div>
+        <div class="cost-item-source"><span class="source-tag source-estimat">Estimat</span></div>
+      </div>
+    </div>
+    <div class="cost-subtotal">
+      <span class="cost-subtotal-label">Subtotal direkte skat</span>
+      <span class="cost-subtotal-amount">~935 mio.</span>
+    </div>
+  </div>
+
+  <div class="cost-group">
+    <div class="cost-group-header">B &middot; Afledte samfundsomkostninger</div>
+    <div class="cost-items">
+      <div class="cost-item" data-source="studie">
+        <div class="cost-item-header">
+          <span class="cost-item-name">Problemspil &amp; f&oslash;lgeomkostninger</span>
+          <span class="cost-item-amount">~1.600 mio.</span>
+        </div>
+        <div class="cost-item-calc">~20.000 problemspillere (moderat + sv&aelig;r risiko) &times; ~80.000 kr./person/&aring;r. Inkl. sundhed, produktivitetstab, retsv&aelig;sen, for tidlig d&oslash;d, p&aring;r&oslash;rende.</div>
+        <div class="cost-item-source"><span class="source-tag source-studie">Hofmarcher 2020</span> <span class="source-tag source-h2">ROFUS + H2 survey</span></div>
+      </div>
+      <div class="cost-item" data-source="estimat">
+        <div class="cost-item-header">
+          <span class="cost-item-name">Hvidvask &amp; kriminalitet</span>
+          <span class="cost-item-amount">~50 mio.</span>
+        </div>
+        <div class="cost-item-calc">60% af offshore er kryptokasinoer uden KYC/AML. Inkl. enforcement-omkostninger.</div>
+        <div class="cost-item-source"><span class="source-tag source-estimat">Estimat</span></div>
+      </div>
+    </div>
+    <div class="cost-subtotal">
+      <span class="cost-subtotal-label">Subtotal afledte omkostninger</span>
+      <span class="cost-subtotal-amount">~1.650 mio.</span>
+    </div>
+  </div>
+
+  <div class="cost-total">
+    <div class="cost-total-label">Samlet &aring;rligt samfundstab</div>
+    <div class="cost-total-amount">~2.585 mio. kr.</div>
+    <div class="cost-total-note">3,7&times; spilleafgiften alene - eller <strong>81,91 kr.</strong> pr. sekund</div>
+  </div>
+
+  <div class="disclaimer disclaimer-orange">
+    <p><strong>Bem&aelig;rk:</strong> Spilleafgift (700 mio.) er baseret direkte p&aring; H2 Gambling Capitals markedsdata. &Oslash;vrige skattem&aelig;ssige tab er estimater baseret p&aring; H2 P&amp;L-data og g&aelig;ldende danske skattesatser. Problemspilomkostninger er baseret p&aring; det svenske cost-of-illness studie (Hofmarcher et al. 2020, SEK 14,4 mia.), som inkluderer b&aring;de moderate og sv&aelig;re problemspillere, skaleret til danske offshore-problemspillere via Spillemyndighedens ROFUS-data og H2 player survey.</p>
+  </div>
+</section>
+
+<!-- ==================== THE PROBLEM ==================== -->
+<div class="divider"><hr></div>
+<section class="content-section problem-section fade-in">
+  <div class="section-label">Problemet</div>
+  <h2 class="section-title">Et parallelt marked uden lov og orden</h2>
+  <p>Hver tredje krone, der spilles online af danskere, ender hos udenlandske operat&oslash;rer <strong>uden dansk licens</strong>. Det er ikke et niche-f&aelig;nomen. Det er et industrielt parallelt marked p&aring; <strong>2,5 milliarder kroner</strong> - fuldst&aelig;ndigt uden for r&aelig;kkevidde af dansk lovgivning.</p>
+  <p>Disse operat&oslash;rer betaler <strong>ingen spilleafgift</strong> til Danmark. De er ikke underlagt Spillemyndighedens tilsyn. De lever ikke op til krav om ansvarligt spil. Og de er vokset med <strong>28% &aring;rligt</strong> siden 2019 - langt hurtigere end det lovlige marked.</p>
+  <div class="callout">
+    <div class="callout-title">Ingen beskyttelse af danske spillere</div>
+    <p>N&aring;r en dansker spiller p&aring; et offshore-kasino, er der <strong>ingen ROFUS</strong>. Det danske Register Over Frivilligt Udelukkede Spillere g&aelig;lder kun licenserede operat&oslash;rer. En spiller, der har udelukket sig selv for at beskytte sig mod problemspil, kan forts&aelig;tte uhindret p&aring; hundredvis af offshore-sider.</p>
+    <p>Der er <strong>ingen aldersverifikation</strong>, <strong>ingen indskudsgr&aelig;nser</strong>, <strong>ingen klageadgang</strong> og <strong>ingen hvidvaskkontrol</strong>. Dansk lov kan simpelthen ikke h&aring;ndh&aelig;ves over for operat&oslash;rer, der opererer fra Cura&ccedil;ao, Malta eller helt anonymt via blockchain.</p>
+  </div>
+  <div class="no-protection">
+    <div class="no-item"><div class="no-item-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke="var(--red)" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="2 2.5" opacity="0.5"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5" stroke="var(--red-bright)" stroke-width="2"/></svg></div><div class="no-item-title">Ingen ROFUS</div><div class="no-item-desc">Selvudelukkelse g&aelig;lder ikke. Problemspillere er ubeskyttede.</div></div>
+    <div class="no-item"><div class="no-item-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7S2.5 12 2.5 12z" stroke="var(--red)" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="var(--red)" stroke-width="1.5"/><circle cx="12" cy="12" r="1" fill="var(--red)" stroke="none"/><line x1="4.5" y1="4.5" x2="19.5" y2="19.5" stroke="var(--red-bright)" stroke-width="2"/></svg></div><div class="no-item-title">Ingen kontrol</div><div class="no-item-desc">Ingen alderstjek, ingen indskudsloft, ingen tilsyn fra Spillemyndigheden.</div></div>
+    <div class="no-item"><div class="no-item-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5.5v5c0 5.25 3.4 10.15 8 11.5 4.6-1.35 8-6.25 8-11.5v-5L12 2z" stroke="var(--red)" stroke-width="1.5"/><path d="M12 6.5L8 8.2v3c0 2.8 1.7 5.4 4 6.3" stroke="var(--red)" stroke-width="1" opacity="0.35"/><line x1="3.5" y1="3.5" x2="20.5" y2="20.5" stroke="var(--red-bright)" stroke-width="2"/></svg></div><div class="no-item-title">Ingen h&aring;ndh&aelig;velse</div><div class="no-item-desc">Operat&oslash;rerne sidder i Cura&ccedil;ao eller p&aring; blockchain. Dansk lov r&aelig;kker ikke.</div></div>
+  </div>
+  <div class="bar-chart fade-in">
+    <div class="bar-label-row"><span class="bar-label-onshore">Licenseret dansk marked - 70%</span><span class="bar-label-offshore">Ulovligt offshore - 30%</span></div>
+    <div class="bar-track-chart"><div class="bar-onshore">70%</div><div class="bar-offshore">30%</div></div>
+    <div class="bar-note">Andel af det samlede danske onlinespilmarked (GGR), 2025-estimat</div>
+  </div>
+  <ul class="highlights">
+    <li>Skatteforh&oslash;jelsen fra <strong>20% til 28%</strong> har gjort det lovlige marked dyrere - og offshore mere attraktivt for operat&oslash;rer</li>
+    <li><strong>Kryptokasinoer</strong> udg&oslash;r ca. 60% af offshore-markedet og tilbyder fuld anonymitet - ingen KYC, ingen sporing, ingen ansvarlighed</li>
+    <li>Offshore-markedet er vokset med en <strong>CAGR p&aring; 28%</strong> fra 2019 til 2024 - en eksplosiv v&aelig;kst der langt overstiger det regulerede marked</li>
+    <li><strong>700 millioner kroner</strong> i tabt spilleafgift hvert &aring;r - penge der kunne finansiere tusindvis af offentligt ansatte</li>
+  </ul>
+</section>
+
+<!-- ==================== METHOD ==================== -->
+<div class="divider"><hr></div>
+<section class="content-section method fade-in">
+  <div class="section-label">Metode</div>
+  <h2 class="section-title">S&aring;dan beregner vi t&aelig;lleren</h2>
+  <p>T&aelig;lleren viser det estimerede samfundstab fra ulovligt offshore-spil i Danmark, fordelt j&aelig;vnt over &aring;ret. Du kan skifte mellem to visninger: <strong>Tabt spilleafgift</strong> (kun den direkte tabte skat) og <strong>Samfundstab</strong> (alle omkostninger inkl. tabte skatteindt&aelig;gter, problemspil og kriminalitet).</p>
+
+  <div class="formula">
+    <strong>Tabt spilleafgift</strong><br><br>
+    Offshore-operat&oslash;rer omsætter for ansla&aring;et <span class="hl">2,5 mia. kr.</span> i bruttospilindtægt (GGR) &aring;rligt i Danmark.<br>
+    Heraf skulle <span class="hl">28%</span> v&aelig;re betalt i spilleafgift = <span class="hl">700 mio. kr./&aring;r</span>.<br>
+    Det svarer til <span class="hl">22,18 kr.</span> pr. sekund.
+  </div>
+
+  <div class="formula">
+    <strong>Samlet samfundstab</strong><br><br>
+    <em>Direkte tabte skatteindt&aelig;gter - <span class="hl">935 mio. kr.</span></em><br>
+    Spilleafgift (700M) + indkomstskat fra tabte jobs (115M) + moms (75M) + l&oslash;nsumsafgift (27M) + selskabsskat (18M).<br>
+    Beregnet ud fra g&aelig;ldende danske skattesatser og H2 Gambling Capitals P&amp;L-data for offshore-operat&oslash;rer.<br><br>
+    <em>Afledte samfundsomkostninger - <span class="hl">1.650 mio. kr.</span></em><br>
+    Problemspil og f&oslash;lgeomkostninger (1.600M): baseret p&aring; ca. 20.000 moderate og sv&aelig;re problemspillere p&aring; offshore-sider &times; ca. 80.000 kr./person/&aring;r. Inkluderer sundhedsv&aelig;sen, produktivitetstab, retsv&aelig;sen og p&aring;r&oslash;rende. Per-person-omkostningen stammer fra det svenske studie af Hofmarcher et al. (2020), som opgjorde de samlede samfundsomkostninger ved problemspil i Sverige til SEK 14,4 mia. Antallet af offshore-problemspillere er estimeret via Spillemyndighedens ROFUS-register (55.899 udelukkede, jan 2025) og H2 Gambling Capitals spillerunders&oslash;gelse (12% af offshore-brugere er ROFUS-registrerede).<br>
+    Hvidvask og kriminalitet (50M): konservativt estimat for enforcement-omkostninger relateret til kryptokasinoer uden KYC/AML.<br><br>
+    <em>Samlet &aring;rligt tab: <span class="hl">~2.585 mio. kr.</span></em> = <span class="hl">81,91 kr./sekund</span>
+  </div>
+
+  <p><strong>Kilder:</strong> H2 Gambling Capital, <em>&ldquo;The Danish Online Gambling Market&rdquo;</em> for Spillebranchen (feb 2026). Hofmarcher et al., <em>&ldquo;Samh&auml;llets kostnader f&ouml;r spelproblem i Sverige&rdquo;</em> (2020). Spillemyndigheden, ROFUS-register (jan 2025). H2 Gambling Capital, player survey (2025).</p>
+
+  <div class="disclaimer"><p><strong>Bem&aelig;rk:</strong> Spilleafgiften (700 mio. kr.) er direkte baseret p&aring; H2 Gambling Capitals markedsdata. De &oslash;vrige skatteposter er estimeret ud fra H2 P&amp;L-data og g&aelig;ldende skattesatser. Problemspilomkostningerne er baseret p&aring; et svensk forskningsstudie, skaleret til danske forhold - det faktiske tal kan v&aelig;re h&oslash;jere eller lavere. T&aelig;lleren fordeler tabet j&aelig;vnt over &aring;ret og afspejler ikke s&aelig;sonudsving.</p></div>
+</section>
+
+<footer>
+  <p>Data: H2 Gambling Capital (feb 2026) &middot; Hofmarcher et al. (2020) &middot; Spillemyndigheden (ROFUS jan 2025)</p>
+  <p>&copy; 2026 UlovligtSpil.dk</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var MODES = {
+    tax: {
+      annual: 700000000,
+      label: 'I \u00e5r har staten mistet i spilleafgift',
+      rateText: '22,18',
+      perSecText: '22,18 kr.'
+    },
+    total: {
+      annual: 2585000000,
+      label: 'I \u00e5r har <strong style="color:var(--red-bright)">ulovligt offshore-spil</strong> kostet samfundet',
+      rateText: '81,91',
+      perSecText: '81,91 kr.'
+    }
+  };
+
+  var MS_PER_YEAR = 365.25 * 24 * 3600 * 1000;
+  var currentMode = MODES.total;
+  var displayedAnnual = currentMode.annual;
+
+  var transitionStartTime = null;
+  var transitionFromAnnual = null;
+  var transitionToAnnual = null;
+  var TRANSITION_DURATION = 800;
+
+  // Professions & welfare items for toggle cycling
+  var PROFESSIONS = [
+    { name: 'sygeplejerskers \u00e5rsl\u00f8n',   salary: 500000, label: '\u00c5rsl\u00f8n: 500.000 kr.' },
+    { name: 'hofteoperationer',                     salary: 100000, label: 'Pris pr. operation: ~100.000 kr.' },
+    { name: 'p\u00e6dagogers \u00e5rsl\u00f8n',    salary: 400000, label: '\u00c5rsl\u00f8n: 400.000 kr.' },
+    { name: 'psykologforl\u00f8b',                  salary: 15000,  label: '12 sessioner: ~15.000 kr.' },
+    { name: 'politibetjentes \u00e5rsl\u00f8n',     salary: 530000, label: '\u00c5rsl\u00f8n: 530.000 kr.' },
+    { name: 'vuggestuepladser (1 \u00e5r)',          salary: 75000,  label: 'Pris: ~75.000 kr./\u00e5r' },
+    { name: 'skolel\u00e6reres \u00e5rsl\u00f8n',   salary: 480000, label: '\u00c5rsl\u00f8n: 480.000 kr.' },
+    { name: 'ambulancer',                            salary: 2500000, label: 'Fuldt udstyret: ~2.500.000 kr.' },
+    { name: 'l\u00e6gers \u00e5rsl\u00f8n',         salary: 750000, label: '\u00c5rsl\u00f8n: 750.000 kr.' },
+    { name: 'plejehjemspladser (1 \u00e5r)',         salary: 800000, label: '\u00c5rsdrift: ~800.000 kr.' },
+    { name: 'SOSU-assistenters \u00e5rsl\u00f8n',   salary: 350000, label: '\u00c5rsl\u00f8n: 350.000 kr.' }
+  ];
+
+  var profIdx = Math.floor(Math.random() * PROFESSIONS.length);
+
+  // Elements
+  var ytdEl = document.getElementById('ytd');
+  var mtdEl = document.getElementById('mtd');
+  var todayStatEl = document.getElementById('today-stat');
+  var todayValueEl = document.getElementById('today-value');
+  var todayBarEl = document.getElementById('today-bar');
+  var welfareCycleEl = document.getElementById('welfare-cycle');
+  var welfareNumberEl = document.getElementById('welfare-number');
+  var welfareNameEl = document.getElementById('welfare-name');
+  var welfareCostEl = document.getElementById('welfare-cost');
+  var ytdStatEl = document.getElementById('ytd-stat');
+  var counterLabelEl = document.getElementById('counter-label');
+  var perSecStatEl = document.getElementById('per-sec-stat');
+  var rateLineEl = document.getElementById('rate-line');
+  var toggleBtns = document.querySelectorAll('.toggle-btn');
+  var toggleSlider = document.querySelector('.toggle-slider');
+
+  // Equiv elements
+  var SALARY_NURSE = 500000, SALARY_TEACHER = 480000, SALARY_PEDAGOGUE = 400000;
+  var eqEls = {
+    nurse:   { ytd: document.getElementById('eq-nurse-ytd'),   mtd: document.getElementById('eq-nurse-mtd'),   day: document.getElementById('eq-nurse-day'),   yr: document.getElementById('eq-nurse-yr') },
+    teacher: { ytd: document.getElementById('eq-teacher-ytd'), mtd: document.getElementById('eq-teacher-mtd'), day: document.getElementById('eq-teacher-day'), yr: document.getElementById('eq-teacher-yr') },
+    ped:     { ytd: document.getElementById('eq-ped-ytd'),     mtd: document.getElementById('eq-ped-mtd'),     day: document.getElementById('eq-ped-day'),     yr: document.getElementById('eq-ped-yr') }
+  };
+
+  // Welfare count-up animation
+  var welfareCountUpId = null;
+  var welfareCountingUp = false;
+
+  function startWelfareCountUp() {
+    welfareCountingUp = true;
+    var prof = PROFESSIONS[profIdx];
+    var now = Date.now();
+    var dkkPerMs = displayedAnnual / MS_PER_YEAR;
+    var target = Math.max(0, (now - yearStart) * dkkPerMs) / prof.salary;
+    var duration = 1200;
+    var start = performance.now();
+
+    if (welfareCountUpId) cancelAnimationFrame(welfareCountUpId);
+
+    function animateCount(ts) {
+      var elapsed = ts - start;
+      var p = Math.min(elapsed / duration, 1);
+      // easeOutExpo
+      var ep = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+      var current = target * ep;
+      welfareNumberEl.textContent = formatPeopleWhole(current);
+      if (p < 1) {
+        welfareCountUpId = requestAnimationFrame(animateCount);
+      } else {
+        welfareCountingUp = false;
+        welfareCountUpId = null;
+      }
+    }
+    welfareCountUpId = requestAnimationFrame(animateCount);
+  }
+
+  // Cycle welfare equivalent every 4s
+  function updateWelfareLabel() {
+    var prof = PROFESSIONS[profIdx];
+    welfareNameEl.textContent = prof.name;
+    welfareCostEl.textContent = prof.label;
+  }
+  updateWelfareLabel();
+
+  setInterval(function () {
+    welfareCycleEl.style.opacity = '0';
+    setTimeout(function () {
+      profIdx = (profIdx + 1) % PROFESSIONS.length;
+      updateWelfareLabel();
+      welfareCycleEl.style.opacity = '1';
+      startWelfareCountUp();
+    }, 350);
+  }, 4000);
+
+  // ── Toggle logic ──
+  function positionSlider(btnEl) {
+    toggleSlider.style.left = btnEl.offsetLeft + 'px';
+    toggleSlider.style.width = btnEl.offsetWidth + 'px';
+  }
+
+  function switchMode(mode) {
+    if (currentMode === mode) return;
+    transitionFromAnnual = displayedAnnual;
+    transitionToAnnual = mode.annual;
+    transitionStartTime = performance.now();
+    currentMode = mode;
+
+    counterLabelEl.innerHTML = mode.label;
+    perSecStatEl.textContent = mode.perSecText;
+    rateLineEl.innerHTML = 'DKK <strong>' + mode.rateText + '</strong> pr. sekund - d\u00f8gnet rundt, \u00e5ret rundt';
+
+    toggleBtns.forEach(function (btn) {
+      btn.classList.toggle('active', MODES[btn.dataset.mode] === mode);
+      if (MODES[btn.dataset.mode] === mode) positionSlider(btn);
+    });
+  }
+
+  toggleBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      switchMode(MODES[btn.dataset.mode]);
+    });
+  });
+
+  var activeBtn = document.querySelector('.toggle-btn.active');
+  if (activeBtn) {
+    toggleSlider.style.transition = 'none';
+    positionSlider(activeBtn);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        toggleSlider.style.transition = '';
+      });
+    });
+  }
+
+  window.addEventListener('resize', function () {
+    var active = document.querySelector('.toggle-btn.active');
+    if (active) positionSlider(active);
+  });
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      var active = document.querySelector('.toggle-btn.active');
+      if (active) positionSlider(active);
+    });
+  }
+
+  // Time anchors
+  function getYearStart() { var n = new Date(); return new Date(n.getFullYear(), 0, 1).getTime(); }
+  function getMonthStart() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), 1).getTime(); }
+  function getDayStart() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime(); }
+
+  var yearStart = getYearStart(), monthStart = getMonthStart(), dayStart = getDayStart();
+  setInterval(function () { yearStart = getYearStart(); monthStart = getMonthStart(); dayStart = getDayStart(); }, 60000);
+
+  // Formatting -no ører on main counter
+  function formatDKKWhole(value) {
+    var int = Math.floor(value).toString();
+    var out = '';
+    for (var i = 0; i < int.length; i++) {
+      if (i > 0 && (int.length - i) % 3 === 0) out += '.';
+      out += int[i];
+    }
+    return out + ' kr.';
+  }
+
+  function formatCompact(value) {
+    if (value >= 1000000000) return (value / 1000000000).toFixed(1).replace('.', ',') + ' mia.';
+    if (value >= 1000000) return (value / 1000000).toFixed(value >= 100000000 ? 0 : 2).replace('.', ',') + ' mio.';
+    if (value >= 1000) return Math.floor(value).toLocaleString('da-DK') + ' kr.';
+    return Math.floor(value) + ' kr.';
+  }
+
+  function formatBarValue(value) {
+    if (value >= 1000000) return 'DKK ' + (value / 1000000).toFixed(1).replace('.', ',') + ' mio.';
+    if (value >= 1000) return 'DKK ' + Math.floor(value / 1000) + '.000';
+    return 'DKK ' + Math.floor(value);
+  }
+
+  function formatPeople(v) {
+    var s = v.toFixed(1);
+    var parts = s.split('.');
+    var int = parts[0], dec = parts[1];
+    if (int.length > 3) int = int.slice(0, -3) + '.' + int.slice(-3);
+    return int + ',' + dec;
+  }
+
+  function formatPeopleWhole(v) {
+    var int = Math.floor(v).toString();
+    if (int.length > 3) int = int.slice(0, -3) + '.' + int.slice(-3);
+    return int;
+  }
+
+  function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+  var INTRO_DURATION = 2400;
+  var startTime = null;
+  var initialCountUpDone = false;
+
+  function tick(ts) {
+    if (!startTime) startTime = ts;
+
+    if (transitionStartTime !== null) {
+      var tElapsed = ts - transitionStartTime;
+      var tP = Math.min(tElapsed / TRANSITION_DURATION, 1);
+      var tEased = easeOutExpo(tP);
+      displayedAnnual = transitionFromAnnual + (transitionToAnnual - transitionFromAnnual) * tEased;
+      if (tP >= 1) transitionStartTime = null;
+    }
+
+    var dkkPerMs = displayedAnnual / MS_PER_YEAR;
+    var dailyLoss = displayedAnnual / 365.25;
+
+    var now = Date.now();
+    var realYTD = Math.max(0, (now - yearStart) * dkkPerMs);
+    var realMTD = Math.max(0, (now - monthStart) * dkkPerMs);
+    var realToday = Math.max(0, (now - dayStart) * dkkPerMs);
+
+    var elapsed = ts - startTime;
+    var p = elapsed < INTRO_DURATION ? easeOutExpo(elapsed / INTRO_DURATION) : 1;
+
+    var dYTD = realYTD * p;
+    var dMTD = realMTD * p;
+    var dDay = realToday * p;
+
+    ytdEl.textContent = formatDKKWhole(dYTD);
+    todayStatEl.textContent = formatCompact(dailyLoss);
+    mtdEl.textContent = formatCompact(displayedAnnual / 12);
+    ytdStatEl.textContent = formatCompact(displayedAnnual);
+
+    if (!initialCountUpDone && elapsed >= INTRO_DURATION) {
+      initialCountUpDone = true;
+      startWelfareCountUp();
+    }
+
+    if (!welfareCountingUp) {
+      var prof = PROFESSIONS[profIdx];
+      welfareNumberEl.textContent = formatPeopleWhole(dYTD / prof.salary);
+    }
+
+    todayValueEl.textContent = formatBarValue(dDay);
+    todayBarEl.style.width = Math.min((dDay / dailyLoss) * 100, 100) + '%';
+
+    // Equiv section (always shows)
+    var eqSalaries = [
+      { els: eqEls.nurse, sal: SALARY_NURSE },
+      { els: eqEls.teacher, sal: SALARY_TEACHER },
+      { els: eqEls.ped, sal: SALARY_PEDAGOGUE }
+    ];
+    for (var i = 0; i < eqSalaries.length; i++) {
+      var s = eqSalaries[i];
+      s.els.ytd.textContent = formatPeople(dYTD / s.sal);
+      s.els.mtd.textContent = formatPeople(dMTD / s.sal);
+      s.els.day.textContent = formatPeople(dDay / s.sal);
+      s.els.yr.textContent = formatPeople(displayedAnnual * p / s.sal);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+
+  // Intersection Observer
+  var fadeEls = document.querySelectorAll('.fade-in');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(function (el) { obs.observe(el); });
+  } else {
+    fadeEls.forEach(function (el) { el.classList.add('visible'); });
+  }
+})();
+</script>
+
+</body>
+</html>
